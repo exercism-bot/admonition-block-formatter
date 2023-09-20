@@ -23,7 +23,7 @@ class AdmonitionBlockFormatter
     matches['before'] + "~~~~" + matches['type'] + matches['admonition'] + "~~~~" + matches['after']
   end
 
-  THREE_TILDE_REGEX = /(?<before>[\s\S]*)(?<start>```)(?<type>exercism\/[a-z]+)(?<admonition>[\s\S]*?)(?<end>```)(?<after>[\s\S]*)/.freeze
-  FOUR_TILDE_REGEX = /(?<before>[\s\S]*)(?<start>````)(?<type>exercism\/[a-z]+)(?<admonition>[\s\S]*?)(?<end>````)(?<after>[\s\S]*)/.freeze
+  THREE_TILDE_REGEX = /(?<before>[\s\S]*)(?<start>`{3,})(?<type>exercism\/[a-z]+)(?<admonition>[\s\S]*?)(?<end>\k<start>)(?<after>[\s\S]*)/.freeze
+  FOUR_TILDE_REGEX = /(?<before>[\s\S]*)(?<start>`{4,})(?<type>exercism\/[a-z]+)(?<admonition>[\s\S]*?)(?<end>\k<start>)(?<after>[\s\S]*)/.freeze
 end
 
