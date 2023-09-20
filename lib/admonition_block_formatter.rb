@@ -1,29 +1,7 @@
 class AdmonitionBlockFormatter
-  def self.format(code)
-    [:format_four, :format_three].each do |meth|
-      while code != (new_code = send(meth, code))
-        code = new_code
-      end
-    end
+  def self.format(code) = code.gsub(BACKTICK_MATCH_REGEX, TILDE_REPLACE)
 
-    code
-  end
-
-  def self.format_three(code)
-    matches = THREE_TILDE_REGEX.match(code)
-    return code unless matches
-
-    matches['before'] + "~~~~" + matches['type'] + matches['admonition'] + "~~~~" + matches['after']
-  end
-
-  def self.format_four(code)
-    matches = FOUR_TILDE_REGEX.match(code)
-    return code unless matches
-
-    matches['before'] + "~~~~" + matches['type'] + matches['admonition'] + "~~~~" + matches['after']
-  end
-
-  THREE_TILDE_REGEX = /(?<before>[\s\S]*)(?<start>`{3,})(?<type>exercism\/[a-z]+)(?<admonition>[\s\S]*?)(?<end>\k<start>)(?<after>[\s\S]*)/.freeze
-  FOUR_TILDE_REGEX = /(?<before>[\s\S]*)(?<start>`{4,})(?<type>exercism\/[a-z]+)(?<admonition>[\s\S]*?)(?<end>\k<start>)(?<after>[\s\S]*)/.freeze
+  BACKTICK_MATCH_REGEX = /(?<start>`{3,})(?<type>exercism\/[a-z]+)(?<admonition>[\s\S]*?)(?<end>\k<start>)/.freeze
+  TILDE_REPLACE = '~~~~\k<type>\k<admonition>~~~~'.freeze
 end
 
